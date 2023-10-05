@@ -6,7 +6,7 @@
  */
 #include"software_timer.h"
 
-int timer1_counter = 0;
+int timer1_counter = 50;
 int timer1_flag = 0;
 
 void setTimer1(int duration){

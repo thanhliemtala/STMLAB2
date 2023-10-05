@@ -12,3 +12,7 @@
 
 #endif /* INC_GLOBAL_H_ */
 #include "software_timer.h"
+#include "main.h"
+#define LED0 0
+#define LED1 1
+#define LED2 2
