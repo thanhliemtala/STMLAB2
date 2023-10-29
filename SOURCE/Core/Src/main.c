@@ -26,6 +26,7 @@
 #include "display7SEG.h"
 #include "global.h"
 #include "main.h"
+#include "update7SEG.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -237,48 +238,15 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 int dem =0;
-int status =LED1;
+int index =2;
 int counter = 50;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	counter--;
 	if(counter <=0){
 		counter=50;
 		dem++;
-	switch(status){
-	case LED1:
-		display7SEG(1);
-		HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_SET);
-		status =LED2;
-		break;
-	case LED2:
-		display7SEG(2);
-		HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_SET);
-		status =LED3;
-		break;
-	case LED3:
-		display7SEG(3);
-		HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_SET);
-		status = LED4;
-		break;
-	case LED4:
-		display7SEG(0);
-		HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_RESET);
-		status = LED1;
-	default:
-		break;
-	}
+	update7SEG(index++);
+	if(index > 3 ) index =0;
 	if(dem == 2){
 		dem =0;
 		HAL_GPIO_TogglePin(GPIOB, DOT_Pin);
