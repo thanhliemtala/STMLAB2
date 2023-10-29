@@ -887,9 +887,9 @@ static void MX_GPIO_Init(void)
 08000690 <HAL_TIM_PeriodElapsedCallback>:
 
 /* USER CODE BEGIN 4 */
-int dem=2;
+int dem=4;
 int index =2;
-int counter = 50;
+int counter = 25;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
  8000690:	b580      	push	{r7, lr}
  8000692:	b082      	sub	sp, #8
@@ -906,9 +906,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
  80006a4:	681b      	ldr	r3, [r3, #0]
  80006a6:	2b00      	cmp	r3, #0
  80006a8:	dc1f      	bgt.n	80006ea <HAL_TIM_PeriodElapsedCallback+0x5a>
-		counter=50;
+		counter=25;
  80006aa:	4b12      	ldr	r3, [pc, #72]	; (80006f4 <HAL_TIM_PeriodElapsedCallback+0x64>)
- 80006ac:	2232      	movs	r2, #50	; 0x32
+ 80006ac:	2219      	movs	r2, #25
  80006ae:	601a      	str	r2, [r3, #0]
 		dem--;
  80006b0:	4b11      	ldr	r3, [pc, #68]	; (80006f8 <HAL_TIM_PeriodElapsedCallback+0x68>)
@@ -924,14 +924,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
  80006c4:	4603      	mov	r3, r0
  80006c6:	4a0d      	ldr	r2, [pc, #52]	; (80006fc <HAL_TIM_PeriodElapsedCallback+0x6c>)
  80006c8:	6013      	str	r3, [r2, #0]
-	if(dem == 0){
+	if(dem <= 0){
  80006ca:	4b0b      	ldr	r3, [pc, #44]	; (80006f8 <HAL_TIM_PeriodElapsedCallback+0x68>)
  80006cc:	681b      	ldr	r3, [r3, #0]
  80006ce:	2b00      	cmp	r3, #0
- 80006d0:	d107      	bne.n	80006e2 <HAL_TIM_PeriodElapsedCallback+0x52>
-		dem =2;
+ 80006d0:	dc07      	bgt.n	80006e2 <HAL_TIM_PeriodElapsedCallback+0x52>
+		dem =4;
  80006d2:	4b09      	ldr	r3, [pc, #36]	; (80006f8 <HAL_TIM_PeriodElapsedCallback+0x68>)
- 80006d4:	2202      	movs	r2, #2
+ 80006d4:	2204      	movs	r2, #4
  80006d6:	601a      	str	r2, [r3, #0]
 		HAL_GPIO_TogglePin(GPIOB, DOT_Pin);
  80006d8:	f44f 6180 	mov.w	r1, #1024	; 0x400
