@@ -237,24 +237,21 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int dem =0;
+int dem=2;
 int index =2;
 int counter = 50;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	counter--;
 	if(counter <=0){
 		counter=50;
-		dem++;
-	update7SEG(index++);
-	if(index > 3 ) index =0;
-	if(dem == 2){
-		dem =0;
+		dem--;
+		index = update7SEG(index);
+	if(dem == 0){
+		dem =2;
 		HAL_GPIO_TogglePin(GPIOB, DOT_Pin);
 	}
 	HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 	}
-
-
 }
 /* USER CODE END 4 */
 

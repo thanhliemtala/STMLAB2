@@ -8,6 +8,6 @@
 #ifndef INC_UPDATE7SEG_H_
 #define INC_UPDATE7SEG_H_
 
- void update7SEG(int index);
+ int update7SEG(int index);
 
 #endif /* INC_UPDATE7SEG_H_ */
