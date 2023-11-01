@@ -71,6 +71,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -107,7 +108,23 @@ int main(void)
 	HAL_GPIO_WritePin(g_GPIO_Port,g_Pin, GPIO_PIN_SET);
   while (1)
   {
-
+	 int hour = 15 , minute = 8 , second = 50;
+	   while (1) {
+	   second ++;
+	   if ( second >= 60) {
+	   second = 0;
+	   minute ++;
+	   }
+	   if ( minute >= 60) {
+	   minute = 0;
+	   hour ++;
+	   }
+	   if ( hour >=24) {
+	   hour = 0;
+	   }
+	   updateClockBuffer(hour,minute) ;
+	   HAL_Delay (1000) ;
+	   }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
