@@ -107,6 +107,13 @@ int main(void)
 	HAL_GPIO_WritePin(f_GPIO_Port,f_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(g_GPIO_Port,g_Pin, GPIO_PIN_SET);
 
+
+
+
+
+
+	const int MAX_LED = 4;
+	int led_buffer [4] = {1 , 5 , 0 , 8};
 	 int hour = 15 , minute = 8 , second = 50;
 	 int dem=2;
 	 int index =2;
@@ -116,7 +123,39 @@ int main(void)
 		if(timer1_flag == 1){
 			setTimer1(50);
 			dem--;
-			index = update7SEG(index);
+			if(index >= MAX_LED) index = 0;
+			switch(index){
+			case 0:
+				display7SEG(led_buffer[index]);
+				HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_SET);
+				break;
+			case 1:
+				display7SEG(led_buffer[index]);
+				HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_SET);
+				break;
+			case 2:
+				display7SEG(led_buffer[index]);
+				HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_SET);
+				break;
+			case 3:
+				display7SEG(led_buffer[index]);
+				HAL_GPIO_WritePin(en0_GPIO_Port,en0_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en1_GPIO_Port,en1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en2_GPIO_Port,en2_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(en3_GPIO_Port,en3_Pin, GPIO_PIN_RESET);
+			default:
+				break;
+			}
+			 index = index+1;
 		if(dem <= 0){
 			dem =2;
 			HAL_GPIO_TogglePin(GPIOB, DOT_Pin);
@@ -132,7 +171,10 @@ int main(void)
 			   if ( hour >=24) {
 			   hour = 0;
 			   }
-			   updateClockBuffer(hour,minute) ;
+				led_buffer [0] = hour /10;
+				led_buffer [1] = hour %10;
+				led_buffer [2] = minute /10;
+				led_buffer [3] = minute %10;
 		}
 		HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 		}
