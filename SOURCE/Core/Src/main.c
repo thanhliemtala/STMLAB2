@@ -106,8 +106,15 @@ int main(void)
 	HAL_GPIO_WritePin(e_GPIO_Port,e_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(f_GPIO_Port,f_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(g_GPIO_Port,g_Pin, GPIO_PIN_SET);
+
+	  setTimer1(1) ;
   while (1)
   {
+	  if(timer1_flag == 1) {
+	  HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin ) ;
+	  setTimer1(2000) ;
+	  }
+
 	 int hour = 15 , minute = 8 , second = 50;
 	   while (1) {
 	   second ++;
@@ -123,7 +130,7 @@ int main(void)
 	   hour = 0;
 	   }
 	   updateClockBuffer(hour,minute) ;
-	   HAL_Delay (1000) ;
+		setTimer1(2000);
 	   }
     /* USER CODE END WHILE */
 
@@ -269,6 +276,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	}
 	HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 	}
+	timerRun();
 }
 /* USER CODE END 4 */
 
