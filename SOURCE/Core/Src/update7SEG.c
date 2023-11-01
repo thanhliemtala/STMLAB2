@@ -9,7 +9,7 @@
 #include "display7SEG.h"
 
 const int MAX_LED = 4;
-int led_buffer [4] = {1 , 2 , 3 , 4};
+int led_buffer [4] = {1 , 5 , 0 , 8};
 int update7SEG(int index){
 	if(index >= MAX_LED) index = 0;
 	switch(index){

@@ -106,25 +106,38 @@ int main(void)
 	HAL_GPIO_WritePin(e_GPIO_Port,e_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(f_GPIO_Port,f_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(g_GPIO_Port,g_Pin, GPIO_PIN_SET);
+
+	 int hour = 15 , minute = 8 , second = 50;
+	 int dem=2;
+	 int index =2;
+	 setTimer1(50);
   while (1)
   {
-	 int hour = 15 , minute = 8 , second = 50;
-	   while (1) {
-	   second ++;
-	   if ( second >= 60) {
-	   second = 0;
-	   minute ++;
-	   }
-	   if ( minute >= 60) {
-	   minute = 0;
-	   hour ++;
-	   }
-	   if ( hour >=24) {
-	   hour = 0;
-	   }
-	   updateClockBuffer(hour,minute) ;
-	   HAL_Delay (1000) ;
-	   }
+		if(timer1_flag == 1){
+			setTimer1(50);
+			dem--;
+			index = update7SEG(index);
+		if(dem <= 0){
+			dem =2;
+			HAL_GPIO_TogglePin(GPIOB, DOT_Pin);
+			   second ++;
+			   if ( second >= 60) {
+			   second = 0;
+			   minute ++;
+			   }
+			   if ( minute >= 60) {
+			   minute = 0;
+			   hour ++;
+			   }
+			   if ( hour >=24) {
+			   hour = 0;
+			   }
+			   updateClockBuffer(hour,minute) ;
+		}
+		HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
+		}
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -254,21 +267,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int dem=4;
-int index =2;
-int counter = 25;
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	counter--;
-	if(counter <=0){
-		counter=25;
-		dem--;
-		index = update7SEG(index);
-	if(dem <= 0){
-		dem =4;
-		HAL_GPIO_TogglePin(GPIOB, DOT_Pin);
-	}
-	HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
-	}
+	timerRun();
 }
 /* USER CODE END 4 */
 
